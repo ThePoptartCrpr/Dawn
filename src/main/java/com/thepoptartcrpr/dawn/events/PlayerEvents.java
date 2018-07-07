@@ -16,6 +16,8 @@ public class PlayerEvents {
         ItemStack heldItemStack = event.getEntityPlayer().getHeldItemMainhand();
         if (block instanceof BlockLog) {
             if (!(heldItem.getToolClasses(heldItemStack).contains("axe"))) event.setNewSpeed(0);
+        } else if (block.getUnlocalizedName().matches("tile.dynamictrees:[a-z]+branch")) {
+            if (!(heldItem.getToolClasses(heldItemStack).contains("axe"))) event.setNewSpeed(0);
         }
     }
 
