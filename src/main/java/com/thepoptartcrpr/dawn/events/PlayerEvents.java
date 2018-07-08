@@ -1,6 +1,5 @@
 package com.thepoptartcrpr.dawn.events;
 
-import com.thepoptartcrpr.dawn.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
