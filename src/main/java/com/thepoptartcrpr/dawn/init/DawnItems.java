@@ -23,7 +23,7 @@ public class DawnItems {
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
-                flintHatchet.setCreativeTab(Dawn.getInstance().getTabDawn())
+                flintHatchet.setCreativeTab(Dawn.getInstance().getCreativeTab())
         );
     }
 

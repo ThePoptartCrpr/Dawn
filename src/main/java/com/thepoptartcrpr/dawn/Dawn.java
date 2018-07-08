@@ -19,7 +19,7 @@ public class Dawn {
     private static Dawn instance;
 
     @Getter
-    private CreativeTabs tabDawn = new TabDawn();
+    private CreativeTabs creativeTab = new TabDawn();
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
