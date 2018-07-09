@@ -1,0 +1,20 @@
+{
+  "result": {
+    "item": "dawn:flint_hatchet",
+    "data": 0
+  },
+  "pattern": [
+    " F",
+    "S "
+  ],
+  "key": {
+    "F": {
+      "item": "minecraft:flint"
+    },
+    "S": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    }
+  },
+  "type": "forge:ore_shaped"
+}

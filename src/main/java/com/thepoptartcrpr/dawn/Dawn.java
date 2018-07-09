@@ -1,6 +1,7 @@
 package com.thepoptartcrpr.dawn;
 
 import com.thepoptartcrpr.dawn.creativetabs.TabDawn;
+import com.thepoptartcrpr.dawn.events.BlockEvents;
 import com.thepoptartcrpr.dawn.events.PlayerEvents;
 import com.thepoptartcrpr.dawn.init.DawnItems;
 import lombok.Getter;
@@ -28,6 +29,7 @@ public class Dawn {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(new BlockEvents());
         MinecraftForge.EVENT_BUS.register(new PlayerEvents());
     }
 
