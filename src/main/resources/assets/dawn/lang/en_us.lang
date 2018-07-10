@@ -1,5 +1,8 @@
 # Tools
 item.flint_hatchet.name=Flint Hatchet
 
+# Blocks
+tile.wooden_strainer.name=Wooden Strainer
+
 # Creative Tabs
 itemGroup.dawn=Dawn

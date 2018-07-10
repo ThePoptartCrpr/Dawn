@@ -35,7 +35,6 @@ public class DawnItems {
     private void registerRender(Item item) {
         ResourceLocation location = item.getRegistryName();
         ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(location, "inventory"));
-        Utils.getConsole().info(location);
     }
 
 }

@@ -3,6 +3,7 @@ package com.thepoptartcrpr.dawn;
 import com.thepoptartcrpr.dawn.creativetabs.TabDawn;
 import com.thepoptartcrpr.dawn.events.BlockEvents;
 import com.thepoptartcrpr.dawn.events.PlayerEvents;
+import com.thepoptartcrpr.dawn.init.DawnBlocks;
 import com.thepoptartcrpr.dawn.init.DawnItems;
 import lombok.Getter;
 import net.minecraft.creativetab.CreativeTabs;
@@ -25,6 +26,7 @@ public class Dawn {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(new DawnItems());
+        MinecraftForge.EVENT_BUS.register(new DawnBlocks());
     }
 
     @EventHandler
