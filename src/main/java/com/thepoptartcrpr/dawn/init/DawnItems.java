@@ -1,8 +1,8 @@
 package com.thepoptartcrpr.dawn.init;
 
 import com.thepoptartcrpr.dawn.Dawn;
-import com.thepoptartcrpr.dawn.items.tools.DawnHatchet;
-import com.thepoptartcrpr.dawn.utils.Utils;
+import com.thepoptartcrpr.dawn.items.DawnItem;
+import com.thepoptartcrpr.dawn.items.tools.ItemHatchet;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
@@ -18,18 +18,22 @@ public class DawnItems {
 
     public static final ToolMaterial flintMaterial = EnumHelper.addToolMaterial(Dawn.Reference.MODID + ":flint", 1, 50, 2, 0.5F, 12);
 
-    public static ItemAxe flintHatchet = new DawnHatchet(flintMaterial, "flint_hatchet");
+    public static ItemAxe flintHatchet = new ItemHatchet(flintMaterial, "flint_hatchet");
+
+    public static Item meshWooden = new DawnItem("mesh_wooden");
 
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
-                flintHatchet.setCreativeTab(Dawn.getInstance().getCreativeTab())
+                flintHatchet.setCreativeTab(Dawn.getInstance().getCreativeTab()),
+                meshWooden.setCreativeTab(Dawn.getInstance().getCreativeTab())
         );
     }
 
     @SubscribeEvent
     public void registerRenders(ModelRegistryEvent event) {
         registerRender(flintHatchet);
+        registerRender(meshWooden);
     }
 
     private void registerRender(Item item) {

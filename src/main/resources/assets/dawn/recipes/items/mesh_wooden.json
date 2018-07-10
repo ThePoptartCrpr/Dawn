@@ -1,0 +1,18 @@
+{
+  "result": {
+    "item": "dawn:mesh_wooden",
+    "data": 0
+  },
+  "pattern": [
+    "SSS",
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    }
+  },
+  "type": "forge:ore_shaped"
+}

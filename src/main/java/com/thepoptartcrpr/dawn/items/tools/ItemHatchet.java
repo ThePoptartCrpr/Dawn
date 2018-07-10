@@ -4,9 +4,9 @@ import com.thepoptartcrpr.dawn.Dawn;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.util.ResourceLocation;
 
-public class DawnHatchet extends ItemAxe {
+public class ItemHatchet extends ItemAxe {
 
-    public DawnHatchet(ToolMaterial material, String name) {
+    public ItemHatchet(ToolMaterial material, String name) {
         super(material, material.getAttackDamage(), -3.5F);
         this.setUnlocalizedName(name);
         this.setRegistryName(new ResourceLocation(Dawn.Reference.MODID, name));
