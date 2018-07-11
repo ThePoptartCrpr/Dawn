@@ -1,6 +1,7 @@
 package com.thepoptartcrpr.dawn.blocks;
 
 import com.thepoptartcrpr.dawn.Dawn;
+import com.thepoptartcrpr.dawn.recipes.strainer.WoodenStrainerRecipe;
 import com.thepoptartcrpr.dawn.tileentity.TileEntityWoodenStrainer;
 import com.thepoptartcrpr.dawn.utils.Utils;
 import net.minecraft.block.Block;
@@ -49,25 +50,20 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
         if (!world.isRemote) {
             TileEntityWoodenStrainer te = (TileEntityWoodenStrainer) world.getTileEntity(pos);
             IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
-            /*if (player.getHeldItemMainhand().getItem() == Items.AIR) {
-                player.setHeldItem(hand, handler.extractItem(0, 1, false));
-            } else {
-                player.setHeldItem(hand, handler.insertItem(0, new ItemStack(player.getHeldItemMainhand().getItem()), false));
-            }*/
+            ItemStack item = player.getHeldItemMainhand();
 
-            //if (handler.getStackInSlot(0).getItem() == Items.AIR) {
-                // te.insertItem(player.getHeldItemMainhand(), handler);
-            // }
+            Utils.getConsole().info(handler.getStackInSlot(0));
+
+            if (!WoodenStrainerRecipe.isInputValid(item)) return false;
 
             if (handler.getStackInSlot(0).getItem() == Items.AIR && player.getHeldItemMainhand().getItem() != Items.AIR) {
-                handler.insertItem(0, new ItemStack(player.getHeldItemMainhand().getItem()), false);
-                player.setHeldItem(hand, new ItemStack(player.getHeldItemMainhand().getItem(), player.getHeldItemMainhand().getCount() - 1));
-            } else if (handler.getStackInSlot(0).getItem() != Items.AIR && player.getHeldItemMainhand().getItem() == Items.AIR) {
+                handler.insertItem(0, new ItemStack(item.getItem()), false);
+                player.setHeldItem(hand, new ItemStack(item.getItem(), item.getCount() - 1));
+            } else if (handler.getStackInSlot(0).getItem() != Items.AIR && item.getItem() == Items.AIR) {
                 player.setHeldItem(hand, handler.extractItem(0, 1, false));
             }
 
             te.markDirty();
-            Utils.getConsole().info(handler.getStackInSlot(0));
         }
         return true;
     }

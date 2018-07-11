@@ -12,12 +12,15 @@ public class BlockEvents {
     @SubscribeEvent
     public void onBlockDrop(BlockEvent.HarvestDropsEvent event) {
         Block block = event.getState().getBlock();
-        ItemStack heldItem = event.getHarvester().getHeldItemMainhand();
 
-        if (block == Blocks.GRAVEL && !(heldItem.getItem().getToolClasses(heldItem).contains("shovel"))) {
+        // TODO: Below code throws NullPointerException due to ininstantiated ItemStack on heldItem being passed in, handle correctly
+
+        // ItemStack heldItem = event.getHarvester().getHeldItemMainhand();
+
+        /*if (block == Blocks.GRAVEL && !(heldItem.getItem().getToolClasses(heldItem).contains("shovel"))) {
             Utils.getConsole().info(event.getDrops().toString());
             event.getDrops().clear();
-        }
+        }*/
     }
 
 }

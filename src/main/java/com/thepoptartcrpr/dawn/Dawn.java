@@ -6,6 +6,7 @@ import com.thepoptartcrpr.dawn.events.PlayerEvents;
 import com.thepoptartcrpr.dawn.init.DawnBlocks;
 import com.thepoptartcrpr.dawn.init.DawnItems;
 import com.thepoptartcrpr.dawn.proxy.CommonProxy;
+import com.thepoptartcrpr.dawn.recipes.strainer.WoodenStrainerRecipe;
 import lombok.Getter;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
@@ -35,6 +36,8 @@ public class Dawn {
 
         MinecraftForge.EVENT_BUS.register(new DawnItems());
         MinecraftForge.EVENT_BUS.register(new DawnBlocks());
+
+        WoodenStrainerRecipe.registerRecipes();
     }
 
     @EventHandler
