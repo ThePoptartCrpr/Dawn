@@ -66,8 +66,7 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
                 SoundEvent sound = Blocks.GRAVEL.getSoundType(Blocks.GRAVEL.getDefaultState(), this.world, this.pos, null).getPlaceSound();
                 this.world.playSound(null, this.getPos(), sound, SoundCategory.BLOCKS, 1, 1);
                 this.clickBuffer++;
-                Utils.getConsole().info(this.clickBuffer);
-                if (clickBuffer <= WoodenStrainerRecipe.getClickBuffer(this.inventory.getStackInSlot(0))) return;
+                if (clickBuffer <= WoodenStrainerRecipe.getRecipe(this.inventory.getStackInSlot(0)).getClickBuffer()) return;
                 if ((rand.nextInt(3) + 1) == 3) this.finishRecipe();
             }
         }

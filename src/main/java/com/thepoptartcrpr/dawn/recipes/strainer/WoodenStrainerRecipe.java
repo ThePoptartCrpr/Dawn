@@ -1,5 +1,6 @@
 package com.thepoptartcrpr.dawn.recipes.strainer;
 
+import lombok.Getter;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -14,11 +15,14 @@ public class WoodenStrainerRecipe {
         FLUID
     }
 
-    public final ItemStack input, output;
+    @Getter
+    private final ItemStack input, output;
 
-    public final RecipeTypes type;
+    @Getter
+    private final RecipeTypes type;
 
-    public final int clickBuffer;
+    @Getter
+    private final int clickBuffer;
 
     public static ArrayList<WoodenStrainerRecipe> recipeList = new ArrayList<>();
 
@@ -47,19 +51,11 @@ public class WoodenStrainerRecipe {
         return false;
     }
 
-    @Nullable
-    public static RecipeTypes getRecipeType(ItemStack stack) {
+    public static WoodenStrainerRecipe getRecipe(ItemStack input) {
         for (WoodenStrainerRecipe recipe : recipeList) {
-            if (ItemStack.areItemsEqual(recipe.input, stack)) return recipe.type;
+            if (ItemStack.areItemsEqual(recipe.input, input)) return recipe;
         }
         return null;
-    }
-
-    public static int getClickBuffer(ItemStack stack) {
-        for (WoodenStrainerRecipe recipe : recipeList) {
-            if (ItemStack.areItemsEqual(recipe.input, stack)) return recipe.clickBuffer;
-        }
-        return 0;
     }
 
     public static void addRecipe(ItemStack input, ItemStack output, RecipeTypes type, int clickBuffer) {
