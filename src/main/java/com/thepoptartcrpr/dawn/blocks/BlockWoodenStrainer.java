@@ -1,16 +1,28 @@
 package com.thepoptartcrpr.dawn.blocks;
 
 import com.thepoptartcrpr.dawn.Dawn;
+import com.thepoptartcrpr.dawn.tileentity.TileEntityWoodenStrainer;
+import com.thepoptartcrpr.dawn.utils.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
-public class BlockWoodenStrainer extends Block {
+public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
 
     public AxisAlignedBB bounds;
 
@@ -33,6 +45,34 @@ public class BlockWoodenStrainer extends Block {
     }
 
     @Override
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!world.isRemote) {
+            TileEntityWoodenStrainer te = (TileEntityWoodenStrainer) world.getTileEntity(pos);
+            IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
+            /*if (player.getHeldItemMainhand().getItem() == Items.AIR) {
+                player.setHeldItem(hand, handler.extractItem(0, 1, false));
+            } else {
+                player.setHeldItem(hand, handler.insertItem(0, new ItemStack(player.getHeldItemMainhand().getItem()), false));
+            }*/
+
+            //if (handler.getStackInSlot(0).getItem() == Items.AIR) {
+                // te.insertItem(player.getHeldItemMainhand(), handler);
+            // }
+
+            if (handler.getStackInSlot(0).getItem() == Items.AIR && player.getHeldItemMainhand().getItem() != Items.AIR) {
+                handler.insertItem(0, new ItemStack(player.getHeldItemMainhand().getItem()), false);
+                player.setHeldItem(hand, new ItemStack(player.getHeldItemMainhand().getItem(), player.getHeldItemMainhand().getCount() - 1));
+            } else if (handler.getStackInSlot(0).getItem() != Items.AIR && player.getHeldItemMainhand().getItem() == Items.AIR) {
+                player.setHeldItem(hand, handler.extractItem(0, 1, false));
+            }
+
+            te.markDirty();
+            Utils.getConsole().info(handler.getStackInSlot(0));
+        }
+        return true;
+    }
+
+    @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
@@ -50,6 +90,16 @@ public class BlockWoodenStrainer extends Block {
     @Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
         return this.bounds;
+    }
+
+    @Override
+    public TileEntity createNewTileEntity(World world, int meta) {
+        return super.createTileEntity(world, getStateFromMeta(meta));
+    }
+
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        return new TileEntityWoodenStrainer();
     }
 
 }
