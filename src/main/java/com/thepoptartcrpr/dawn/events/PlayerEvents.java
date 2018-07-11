@@ -16,9 +16,10 @@ public class PlayerEvents {
         Item heldItem = event.getEntityPlayer().getHeldItemMainhand().getItem();
         ItemStack heldItemStack = event.getEntityPlayer().getHeldItemMainhand();
 
-        if (ArrayUtils.contains(OreDictionary.getOreIDs(new ItemStack(block)), OreDictionary.getOreID("logWood"))) {
+        if (block.getUnlocalizedName().matches("tile.dynamictrees:[a-z]+branch")) {
             if (!(heldItem.getToolClasses(heldItemStack).contains("axe"))) event.setNewSpeed(0);
-        } else if (block.getUnlocalizedName().matches("tile.dynamictrees:[a-z]+branch")) {
+        }
+        else if (ArrayUtils.contains(OreDictionary.getOreIDs(new ItemStack(block)), OreDictionary.getOreID("logWood"))) {
             if (!(heldItem.getToolClasses(heldItemStack).contains("axe"))) event.setNewSpeed(0);
         }
     }

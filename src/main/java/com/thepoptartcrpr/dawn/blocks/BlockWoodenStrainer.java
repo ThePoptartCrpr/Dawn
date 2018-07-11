@@ -16,7 +16,8 @@ public class BlockWoodenStrainer extends Block {
 
     public BlockWoodenStrainer() {
         // Sneaky workaround so you can't place two on top of the other
-        super(Material.CIRCUITS);
+        // super(Material.CIRCUITS);
+        super(Material.WOOD);
 
         this.setUnlocalizedName("wooden_strainer");
         this.setRegistryName(new ResourceLocation(Dawn.Reference.MODID, "wooden_strainer"));
@@ -27,7 +28,8 @@ public class BlockWoodenStrainer extends Block {
     @Override
     public boolean canPlaceBlockAt(World world, BlockPos pos)
     {
-        return (world.getBlockState(pos.down()).getMaterial().isSolid() && super.canPlaceBlockAt(world, pos));
+        // return (world.getBlockState(pos.down()).getMaterial().isSolid() && super.canPlaceBlockAt(world, pos));
+        return (world.getBlockState(pos.down()).isFullCube() && super.canPlaceBlockAt(world, pos));
     }
 
     @Override
