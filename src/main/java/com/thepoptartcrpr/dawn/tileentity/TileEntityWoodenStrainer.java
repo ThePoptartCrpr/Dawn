@@ -24,6 +24,8 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
     private ItemStackHandler inventory = new ItemStackHandler(1);
     private Random rand = new Random();
 
+    private int clickBuffer = 0;
+
     public TileEntityWoodenStrainer() {
 
     }
@@ -63,6 +65,9 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
             if (WoodenStrainerRecipe.isInputValid(this.inventory.getStackInSlot(0))) {
                 SoundEvent sound = Blocks.GRAVEL.getSoundType(Blocks.GRAVEL.getDefaultState(), this.world, this.pos, null).getPlaceSound();
                 this.world.playSound(null, this.getPos(), sound, SoundCategory.BLOCKS, 1, 1);
+                this.clickBuffer++;
+                Utils.getConsole().info(this.clickBuffer);
+                if (clickBuffer <= WoodenStrainerRecipe.getClickBuffer(this.inventory.getStackInSlot(0))) return;
                 if ((rand.nextInt(3) + 1) == 3) this.finishRecipe();
             }
         }
@@ -71,6 +76,7 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
     public void finishRecipe() {
         Utils.getConsole().info(WoodenStrainerRecipe.getResult(this.inventory.getStackInSlot(0)));
         this.inventory.setStackInSlot(0, WoodenStrainerRecipe.getResult(this.inventory.getStackInSlot(0)));
+        this.clickBuffer = 0;
     }
 
 }
