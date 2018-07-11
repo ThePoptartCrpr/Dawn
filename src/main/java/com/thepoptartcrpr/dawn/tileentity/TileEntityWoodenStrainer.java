@@ -48,16 +48,8 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
     @Override
     public void update() {
         if (!this.world.isRemote) {
-            // Utils.getConsole().info("E");
+            
         }
-    }
-
-    public ItemStack insertItem(ItemStack stack, IItemHandler handler) {
-        if (handler.getStackInSlot(0).getItem() == Items.AIR) {
-            // handler.insertItem(0, new ItemStack(stack.getItem()), false);
-            Utils.getConsole().info(new ItemStack(stack.getItem()).getCount());
-        }
-        return stack;
     }
 
 }
