@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -41,7 +42,6 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
     @Override
     public boolean canPlaceBlockAt(World world, BlockPos pos)
     {
-        // return (world.getBlockState(pos.down()).getMaterial().isSolid() && super.canPlaceBlockAt(world, pos));
         return (world.getBlockState(pos.down()).isFullCube() && super.canPlaceBlockAt(world, pos));
     }
 
@@ -69,6 +69,16 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
             te.markDirty();
         }
         return true;
+    }
+
+    @Override
+    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+        TileEntityWoodenStrainer te = (TileEntityWoodenStrainer) world.getTileEntity(pos);
+        IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.SOUTH);
+        ItemStack stack = handler.getStackInSlot(0);
+        EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+        world.spawnEntity(item);
+        super.breakBlock(world, pos, state);
     }
 
     @Override

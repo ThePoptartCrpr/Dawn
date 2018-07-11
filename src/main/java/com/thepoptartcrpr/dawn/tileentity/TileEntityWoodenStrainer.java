@@ -73,7 +73,6 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
     }
 
     public void finishRecipe() {
-        Utils.getConsole().info(WoodenStrainerRecipe.getResult(this.inventory.getStackInSlot(0)));
         this.inventory.setStackInSlot(0, WoodenStrainerRecipe.getResult(this.inventory.getStackInSlot(0)));
         this.clickBuffer = 0;
     }
