@@ -10,8 +10,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -23,15 +21,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
 
     public AxisAlignedBB bounds;
 
     public BlockWoodenStrainer() {
-        // Sneaky workaround so you can't place two on top of the other
-        // super(Material.CIRCUITS);
         super(Material.WOOD);
 
         this.setUnlocalizedName("wooden_strainer");
@@ -52,10 +47,10 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
         IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
         ItemStack item = player.getHeldItemMainhand();
 
-        if (!(WoodenStrainerRecipe.isInputValid(item)) && !handler.getStackInSlot(0).isEmpty()) return false;
+        if (!(WoodenStrainerRecipe.isInputValid(item)) && handler.getStackInSlot(0).isEmpty()) return false;
 
         if (!world.isRemote) {
-            if (!WoodenStrainerRecipe.isInputValid(item) || !(handler.getStackInSlot(0).isEmpty())) {
+            if (!(WoodenStrainerRecipe.isInputValid(item)) || !(handler.getStackInSlot(0).isEmpty())) {
                 te.onClick();
             }
             else if (handler.getStackInSlot(0).isEmpty() && WoodenStrainerRecipe.isInputValid(item)) {
@@ -73,7 +68,7 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
         TileEntityWoodenStrainer te = (TileEntityWoodenStrainer) world.getTileEntity(pos);
         IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.SOUTH);
         ItemStack stack = handler.getStackInSlot(0);
-        EntityItem item = new EntityItem(world, pos.getX(), pos.getY(), pos.getZ(), stack);
+        EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5, stack);
         world.spawnEntity(item);
         super.breakBlock(world, pos, state);
     }

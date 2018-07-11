@@ -79,7 +79,7 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
                         0.0D,
                         0.0D,
                         0.0D,
-                        2,
+                        5,
                         Block.getStateId(Blocks.GRAVEL.getDefaultState())
                 );
 
@@ -94,7 +94,7 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
         ItemStack stack = new ItemStack(WoodenStrainerRecipe.getRecipe(this.inventory.getStackInSlot(0)).getOutput());
         this.inventory.setStackInSlot(0, ItemStack.EMPTY);
         this.clickBuffer = 0;
-        EntityItem item = new EntityItem(world, pos.getX(), pos.getY() + 0.4, pos.getZ(), stack);
+        EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ()+ 0.5, stack);
         world.spawnEntity(item);
         this.markDirty();
     }
