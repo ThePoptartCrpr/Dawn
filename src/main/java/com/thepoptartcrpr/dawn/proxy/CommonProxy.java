@@ -16,7 +16,7 @@ public class CommonProxy {
     }
 
     public void registerTileEntities() {
-        GameRegistry.registerTileEntity(TileEntityWoodenStrainer.class, new ResourceLocation(Dawn.Reference.MODID, ":wooden_strainer"));
+        GameRegistry.registerTileEntity(TileEntityWoodenStrainer.class, new ResourceLocation(Dawn.Reference.MODID, "wooden_strainer"));
     }
 
 }
