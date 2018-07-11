@@ -28,7 +28,7 @@ public class WoodenStrainerRecipe {
 
     public static ItemStack getResult(ItemStack stack) {
         for (WoodenStrainerRecipe recipe : recipeList) {
-            if (ItemStack.areItemsEqual(recipe.input, stack)) return recipe.input;
+            if (ItemStack.areItemsEqual(recipe.input, stack)) return recipe.output;
         }
         return null;
     }

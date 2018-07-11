@@ -54,7 +54,10 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
 
             Utils.getConsole().info(handler.getStackInSlot(0));
 
-            if (!WoodenStrainerRecipe.isInputValid(item)) return false;
+            if (!WoodenStrainerRecipe.isInputValid(item)) {
+                te.onClick();
+                return false;
+            }
 
             if (handler.getStackInSlot(0).getItem() == Items.AIR && player.getHeldItemMainhand().getItem() != Items.AIR) {
                 handler.insertItem(0, new ItemStack(item.getItem()), false);
