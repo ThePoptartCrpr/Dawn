@@ -23,6 +23,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
 
@@ -47,23 +48,19 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        TileEntityWoodenStrainer te = (TileEntityWoodenStrainer) world.getTileEntity(pos);
+        IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
+        ItemStack item = player.getHeldItemMainhand();
+
+        if (!(WoodenStrainerRecipe.isInputValid(item)) && !handler.getStackInSlot(0).isEmpty()) return false;
+
         if (!world.isRemote) {
-            TileEntityWoodenStrainer te = (TileEntityWoodenStrainer) world.getTileEntity(pos);
-            IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
-            ItemStack item = player.getHeldItemMainhand();
-
-            Utils.getConsole().info(handler.getStackInSlot(0));
-
-            if (!WoodenStrainerRecipe.isInputValid(item)) {
+            if (!WoodenStrainerRecipe.isInputValid(item) || !(handler.getStackInSlot(0).isEmpty())) {
                 te.onClick();
-                return false;
             }
-
-            if (handler.getStackInSlot(0).getItem() == Items.AIR && player.getHeldItemMainhand().getItem() != Items.AIR) {
+            else if (handler.getStackInSlot(0).isEmpty() && WoodenStrainerRecipe.isInputValid(item)) {
                 handler.insertItem(0, new ItemStack(item.getItem()), false);
                 player.setHeldItem(hand, new ItemStack(item.getItem(), item.getCount() - 1));
-            } else if (handler.getStackInSlot(0).getItem() != Items.AIR && item.getItem() == Items.AIR) {
-                player.setHeldItem(hand, handler.extractItem(0, 1, false));
             }
 
             te.markDirty();

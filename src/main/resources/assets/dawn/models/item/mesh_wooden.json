@@ -2,5 +2,10 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "dawn:items/mesh_wooden"
+  },
+  "display": {
+    "gui": {
+      "translation": [ 0.5, 0.5, 0.5 ]
+    }
   }
 }
