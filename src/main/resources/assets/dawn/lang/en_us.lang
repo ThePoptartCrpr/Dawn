@@ -6,6 +6,7 @@ item.flint_hatchet.name=Flint Hatchet
 
 # Blocks
 tile.wooden_strainer.name=Wooden Strainer
+tile.stump.name=Stump
 
 # Creative Tabs
 itemGroup.dawn=Dawn

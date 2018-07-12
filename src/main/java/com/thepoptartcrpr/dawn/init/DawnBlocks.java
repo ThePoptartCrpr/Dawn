@@ -1,6 +1,7 @@
 package com.thepoptartcrpr.dawn.init;
 
 import com.thepoptartcrpr.dawn.Dawn;
+import com.thepoptartcrpr.dawn.blocks.BlockStump;
 import com.thepoptartcrpr.dawn.blocks.BlockWoodenStrainer;
 import com.thepoptartcrpr.dawn.utils.Utils;
 import net.minecraft.block.Block;
@@ -16,24 +17,28 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class DawnBlocks {
 
     public static Block woodenStrainer = new BlockWoodenStrainer();
+    public static Block stump = new BlockStump();
 
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Block> event) {
         event.getRegistry().registerAll(
-            woodenStrainer.setCreativeTab(Dawn.getInstance().getCreativeTab())
+                woodenStrainer.setCreativeTab(Dawn.getInstance().getCreativeTab()),
+                stump.setCreativeTab(Dawn.getInstance().getCreativeTab())
         );
     }
 
     @SubscribeEvent
     public void registerItemBlocks(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
-                blockToItem(woodenStrainer)
+                blockToItem(woodenStrainer),
+                blockToItem(stump)
         );
     }
 
     @SubscribeEvent
     public void registerRenders(ModelRegistryEvent event) {
         registerRender(woodenStrainer);
+        registerRender(stump);
     }
 
     private Item blockToItem(Block block) {
