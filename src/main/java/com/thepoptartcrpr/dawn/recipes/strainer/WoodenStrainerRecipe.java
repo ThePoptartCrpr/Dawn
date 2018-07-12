@@ -7,7 +7,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class WoodenStrainerRecipe {
@@ -42,13 +41,6 @@ public class WoodenStrainerRecipe {
         this.clickBuffer = clickBuffer;
     }
 
-    public static Item getResult(ItemStack stack) {
-        for (WoodenStrainerRecipe recipe : recipeList) {
-            if (ItemStack.areItemsEqual(recipe.input, stack)) return recipe.output;
-        }
-        return null;
-    }
-
     public static boolean isInputValid(ItemStack stack) {
         for (WoodenStrainerRecipe recipe : recipeList) {
             if (ItemStack.areItemsEqual(recipe.input, stack)) return true;
@@ -58,7 +50,6 @@ public class WoodenStrainerRecipe {
 
     public static WoodenStrainerRecipe getRecipe(ItemStack input) {
         for (WoodenStrainerRecipe recipe : recipeList) {
-            Utils.getConsole().info("The stack is " + input + " and the recipe input is " + recipe.input + "The output is " + recipe.output + ". Do they match? " + ItemStack.areItemsEqual(recipe.input, input));
             if (ItemStack.areItemsEqual(recipe.input, input)) return recipe;
         }
         return null;

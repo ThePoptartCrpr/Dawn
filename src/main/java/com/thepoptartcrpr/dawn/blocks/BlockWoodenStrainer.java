@@ -36,8 +36,7 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World world, BlockPos pos)
-    {
+    public boolean canPlaceBlockAt(World world, BlockPos pos) {
         return (world.getBlockState(pos.down()).isFullCube() && super.canPlaceBlockAt(world, pos));
     }
 
@@ -47,10 +46,8 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
         IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
         ItemStack item = player.getHeldItemMainhand();
 
-        // if (!(WoodenStrainerRecipe.isInputValid(item)) && handler.getStackInSlot(0).isEmpty()) {
-
-            // return false;
-        // }
+        // TODO: This should work perfectly but causes a doubleclick issue on right click with empty hand, fix later
+        // if (!(WoodenStrainerRecipe.isInputValid(item)) && handler.getStackInSlot(0).isEmpty()) return false;
 
         if (!world.isRemote) {
             if (!(WoodenStrainerRecipe.isInputValid(item)) || !(handler.getStackInSlot(0).isEmpty())) {
