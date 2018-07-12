@@ -47,7 +47,10 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
         IItemHandler handler = te.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
         ItemStack item = player.getHeldItemMainhand();
 
-        if (!(WoodenStrainerRecipe.isInputValid(item)) && handler.getStackInSlot(0).isEmpty()) return false;
+        // if (!(WoodenStrainerRecipe.isInputValid(item)) && handler.getStackInSlot(0).isEmpty()) {
+
+            // return false;
+        // }
 
         if (!world.isRemote) {
             if (!(WoodenStrainerRecipe.isInputValid(item)) || !(handler.getStackInSlot(0).isEmpty())) {

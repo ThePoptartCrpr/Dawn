@@ -3,13 +3,18 @@ package com.thepoptartcrpr.dawn.tileentity;
 import com.thepoptartcrpr.dawn.recipes.strainer.WoodenStrainerRecipe;
 import com.thepoptartcrpr.dawn.utils.Utils;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
@@ -21,7 +26,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
+public class TileEntityWoodenStrainer extends TileEntity {
 
     private ItemStackHandler inventory = new ItemStackHandler(1);
     private Random rand = new Random();
@@ -45,6 +50,44 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
     }
 
     @Override
+    public SPacketUpdateTileEntity getUpdatePacket() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        this.writeToNBT(nbt);
+        return new SPacketUpdateTileEntity(this.pos, this.getBlockMetadata(), nbt);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
+        this.readFromNBT(packet.getNbtCompound());
+    }
+
+    @Override
+    public NBTTagCompound getUpdateTag() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        this.writeToNBT(nbt);
+        return nbt;
+    }
+
+    @Override
+    public void handleUpdateTag(NBTTagCompound nbt) {
+        this.readFromNBT(nbt);
+    }
+
+    @Override
+    public NBTTagCompound getTileData() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        this.writeToNBT(nbt);
+        return nbt;
+    }
+
+    @Override
+    public void markDirty() {
+        final IBlockState state = getWorld().getBlockState(getPos());
+        getWorld().notifyBlockUpdate(getPos(), state, state, 2);
+        super.markDirty();
+    }
+
+    @Override
     public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
         return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY || super.hasCapability(capability, facing);
     }
@@ -53,13 +96,6 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
     @Override
     public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
         return capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY ? (T) inventory : super.getCapability(capability, facing);
-    }
-
-    @Override
-    public void update() {
-        if (!this.world.isRemote) {
-
-        }
     }
 
     public void onClick() {
@@ -91,12 +127,22 @@ public class TileEntityWoodenStrainer extends TileEntity implements ITickable {
     }
 
     public void finishRecipe() {
+        this.getStack();
         ItemStack stack = new ItemStack(WoodenStrainerRecipe.getRecipe(this.inventory.getStackInSlot(0)).getOutput());
         this.inventory.setStackInSlot(0, ItemStack.EMPTY);
         this.clickBuffer = 0;
         EntityItem item = new EntityItem(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ()+ 0.5, stack);
         world.spawnEntity(item);
         this.markDirty();
+    }
+
+    public ItemStack getStack() {
+        return this.inventory.getStackInSlot(0);
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+        return oldState.getBlock() != newState.getBlock();
     }
 
 }
