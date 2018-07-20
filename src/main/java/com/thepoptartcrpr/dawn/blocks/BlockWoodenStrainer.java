@@ -6,6 +6,7 @@ import com.thepoptartcrpr.dawn.tileentity.TileEntityWoodenStrainer;
 import com.thepoptartcrpr.dawn.utils.Utils;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -33,6 +34,8 @@ public class BlockWoodenStrainer extends Block implements ITileEntityProvider {
         this.setRegistryName(new ResourceLocation(Dawn.Reference.MODID, "wooden_strainer"));
 
         this.bounds = new AxisAlignedBB(1.5D/16.0D, 0.0D, 1.5D/16.0D, 14.5D/16.0D, 4.0D/16.0D, 14.5D/16.0D);
+
+        this.setSoundType(SoundType.WOOD);
     }
 
     @Override

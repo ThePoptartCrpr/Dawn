@@ -2,6 +2,7 @@ package com.thepoptartcrpr.dawn.blocks;
 
 import com.thepoptartcrpr.dawn.Dawn;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
@@ -20,6 +21,8 @@ public class BlockStump extends Block {
         this.setRegistryName(new ResourceLocation(Dawn.Reference.MODID, "stump"));
 
         this.bounds = new AxisAlignedBB(1.0D/16.0D, 0.0D, 1.0D/16.0D, 15.0D/16.0D, 8.0D/16.0D, 15.0D/16.0D);
+
+        this.setSoundType(SoundType.WOOD);
     }
 
     @Override
