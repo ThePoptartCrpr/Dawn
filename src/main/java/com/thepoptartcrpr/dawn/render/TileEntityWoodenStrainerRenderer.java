@@ -1,12 +1,8 @@
 package com.thepoptartcrpr.dawn.render;
 
 import com.thepoptartcrpr.dawn.tileentity.TileEntityWoodenStrainer;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 
 public class TileEntityWoodenStrainerRenderer extends TileEntitySpecialRenderer<TileEntityWoodenStrainer> {
 
@@ -15,21 +11,11 @@ public class TileEntityWoodenStrainerRenderer extends TileEntitySpecialRenderer<
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y, z);
 
-        if (!te.getStack().isEmpty()) this.renderItem(te, te.getStack(), 0.5F, 0.2F, 0.5F);
+        if (!te.getStack().isEmpty()) RenderHelper.renderItem(te, te.getStack(), 0.5F, 0.2F, 0.5F, 1.37F, 0.2F, 1.37F);
 
         GlStateManager.popMatrix();
 
         super.render(te, x, y, z, partialTicks, destroyStage, alpha);
-    }
-
-    private void renderItem(TileEntity te, ItemStack stack, float x, float y, float z) {
-        GlStateManager.translate(x, y, z);
-        GlStateManager.pushMatrix();
-
-        GlStateManager.scale(1.37F, 0.2F, 1.37F);
-
-        Minecraft.getMinecraft().getRenderItem().renderItem(stack.copy(), ItemCameraTransforms.TransformType.FIXED);
-        GlStateManager.popMatrix();
     }
 
 }
