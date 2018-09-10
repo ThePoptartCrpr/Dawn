@@ -1,0 +1,29 @@
+{
+  "result": {
+    "item": "dawn:frame_wooden",
+    "data": 0
+  },
+  "pattern": [
+    "BA",
+    "CD"
+  ],
+  "key": {
+    "A": {
+      "item": "dawn:frame_corner",
+      "data": 0
+    },
+    "B": {
+      "item": "dawn:frame_corner",
+      "data": 1
+    },
+    "C": {
+      "item": "dawn:frame_corner",
+      "data": 2
+    },
+    "D": {
+      "item": "dawn:frame_corner",
+      "data": 3
+    }
+  },
+  "type": "forge:ore_shaped"
+}

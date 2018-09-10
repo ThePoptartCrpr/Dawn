@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "dawn:frame_corner",
+    "data": 2
+  },
+  "pattern": [
+    "S ",
+    "SS"
+  ],
+  "key": {
+    "S": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    }
+  },
+  "type": "forge:ore_shaped"
+}

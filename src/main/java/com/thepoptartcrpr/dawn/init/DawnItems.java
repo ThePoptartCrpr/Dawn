@@ -27,13 +27,15 @@ public class DawnItems {
     // Non-Utility Items
     public static Item meshWooden = new DawnItem("mesh_wooden");
     public static Item frameCorner = new ItemFrameCorner("frame_corner");
+    public static Item frameWooden = new DawnItem("frame_wooden");
 
     @SubscribeEvent
     public void registerItems(RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
                 flintHatchet.setCreativeTab(Dawn.getInstance().getCreativeTab()),
                 meshWooden.setCreativeTab(Dawn.getInstance().getCreativeTab()),
-                frameCorner.setCreativeTab(Dawn.getInstance().getCreativeTab())
+                frameCorner.setCreativeTab(Dawn.getInstance().getCreativeTab()),
+                frameWooden.setCreativeTab(Dawn.getInstance().getCreativeTab())
         );
     }
 
@@ -44,6 +46,7 @@ public class DawnItems {
         for (int i = 0; i < FrameCornerTypes.values().length; i++) {
             registerRender(frameCorner, i, frameCorner.getRegistryName() + "_" + i);
         }
+        registerRender(frameWooden);
     }
 
     private void registerRender(Item item) {

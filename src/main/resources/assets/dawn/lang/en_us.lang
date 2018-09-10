@@ -4,6 +4,7 @@ item.frame_corner.0.name=Wooden Frame Corner
 item.frame_corner.1.name=Wooden Frame Corner
 item.frame_corner.2.name=Wooden Frame Corner
 item.frame_corner.3.name=Wooden Frame Corner
+item.frame_wooden.name=Wooden Frame
 
 # Tools
 item.flint_hatchet.name=Flint Hatchet
